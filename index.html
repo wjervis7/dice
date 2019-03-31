@@ -1,0 +1,55 @@
+<html>
+    <head>
+        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.css" integrity="sha256-Nfu23DiRqsrx/6B6vsI0T9vEVKq1M6KgO8+TV363g3s=" crossorigin="anonymous" />
+
+    </head>
+    <body>
+        <div id="main">
+            <div class="jumbotron">
+                <span v-for="die in dice">
+                    {{die}}
+                </span>
+            </div>
+            <button type="button" @click="addDie" class="btn btn-primary">Add Die</button>
+            <button type="button" @click="removeDie" class="btn btn-primary">Remove Die</button>
+            <button type="button" @click="rollDice" class="btn btn-primary">Roll Dice</button>
+        </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.bundle.min.js" integrity="sha256-fzFFyH01cBVPYzl16KT40wqjhgPtq6FFUB6ckN2+GGw=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js" integrity="sha256-chlNFSVx3TdcQ2Xlw7SvnbLAavAQLO0Y/LBiWX04viY=" crossorigin="anonymous"></script>
+        <script type="text/javascript">
+        (() => {
+            $(() => {
+                const min = 1;
+                const max = 6;
+                const rollDie = (die) => {
+                    const randomBuffer = new Uint32Array(1);
+                    window.crypto.getRandomValues(randomBuffer);
+                    
+                    let randomNumber = randomBuffer[0] / (0xffffffff + 1);
+                    
+                    return Math.floor(randomNumber * (max - min + 1)) + min;
+                }
+                const main = new Vue({
+                    el: "#main",
+                    data: {
+                        dice: []
+                    },
+                    methods: {
+                        addDie(){
+                            this.dice.push(0);
+                        },
+                        removeDie(){
+                            this.dice.pop();
+                        },
+                        rollDice(){
+                            this.dice = this.dice.map(rollDie);
+                        }
+                    }
+                })
+            });
+        })();
+        </script>
+    </body>
+</html>
