@@ -1,0 +1,27 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div id="main">
+    <div class="jumbotron">
+        <div v-for="die in dice" class="d-inline-block text-center" style="padding: 5px;">
+            <i :class="[die.class, 'fas', 'fa-5x']"></i>
+            <br/>
+            <span class="text-center">{{die.text}}</span>
+        </div>
+    </div>
+    <button type="button" @@click="addDie" class="btn btn-primary">Add Die</button>
+    <button type="button" @@click="removeDie" class="btn btn-primary">Remove Die</button>
+    <button type="button" @@click="rollDice" class="btn btn-primary">Roll Dice</button>
+</div>
+
+@section Scripts
+{
+    <environment include="Development">
+        <script type="module" src="es6/home/index.js"></script>
+        <script type="nomodule" defer src="es5/home/index.js"></script>
+    </environment>
+    <environment exclude="Development">
+
+    </environment>
+}
