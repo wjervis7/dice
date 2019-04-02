@@ -51,7 +51,7 @@
             {
                 routes.MapRoute(
                     "default",
-                    "{controller=Home}/{action=Index}/{id?}");
+                    "dice/{controller=Home}/{action=Index}/{id?}");
             });
         }
     }
