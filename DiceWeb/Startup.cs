@@ -33,6 +33,8 @@
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UsePathBase("/dice");
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -51,7 +53,7 @@
             {
                 routes.MapRoute(
                     "default",
-                    "dice/{controller=Home}/{action=Index}/{id?}");
+                    "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }
