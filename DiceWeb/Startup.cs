@@ -34,6 +34,8 @@
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UsePathBase("/dice");
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -43,6 +45,11 @@
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
+
+            //app.UseForwardedHeaders(new ForwardedHeadersOptions
+            //{
+            //    ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+            //});
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
@@ -54,13 +61,6 @@
                     "default",
                     "{controller=Home}/{action=Index}/{id?}");
             });
-
-            //app.UseForwardedHeaders(new ForwardedHeadersOptions
-            //{
-            //    ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
-            //});
-
-            app.UsePathBase("/dice");
         }
     }
 }
